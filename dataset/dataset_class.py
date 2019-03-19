@@ -3,6 +3,10 @@ import os
 import pandas as pd
 from torch.utils.data import Dataset
 
+import logging
+logger = logging.getLogger(__name__)
+logger.setLevel(logging.INFO)
+
 
 class CustomDataset(Dataset):
     def __init__(self, data_dir, labels_file, transforms):

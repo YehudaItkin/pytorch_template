@@ -1,7 +1,6 @@
 from transformations.transformations import ToTensor
-from utils.utils import read_config, Counters, save_model
+from utils.utils import read_config, Counters, save_model, train_test_split
 from torchvision import transforms
-from torchvision import utils
 import torch
 from torch import optim
 from torch import nn
@@ -9,7 +8,6 @@ import torch.utils.data as data_utils
 from dnn.network import DNN
 import logging
 from dataset.dataset_class import CustomDataset
-import numpy as np
 
 logger = logging.getLogger(__name__)
 logger.setLevel(logging.INFO)
@@ -69,6 +67,7 @@ def main():
     batch_epochs = config['batch_epochs']
 
     model = DNN().to(device)
+
     criterion = nn.MSELoss().to(device)
     optimizer = optim.Adam(model.parameters(), lr=learning_rate)
 
@@ -105,14 +104,6 @@ def main():
         train_epoch += batch_epochs
         test_loss = test(test_dataloader, model, criterion)
         save_model(model, optimizer, train_loss, test_loss, train_epoch)
-
-
-def train_test_split(data_len, train_size):
-    train_size = int(data_len * train_size)
-    indx = list(range(data_len))
-    np.random.shuffle(indx)
-    train_idx, test_idx = indx[:train_size], indx[train_size:]
-    return train_idx, test_idx
 
 
 if __name__ == '__main__':

@@ -1,6 +1,7 @@
 import configparser
 
 import cv2
+import numpy as np
 import pandas as pd
 import torch
 
@@ -85,3 +86,11 @@ def load_model(model, optimizer, filename="model.pth"):
     train_loss = checkpoint['train_loss']
     test_loss = checkpoint['test_loss']
     return model, optimizer, train_loss, test_loss, epoch
+
+
+def train_test_split(data_len, train_size):
+    train_size = int(data_len * train_size)
+    indx = list(range(data_len))
+    np.random.shuffle(indx)
+    train_idx, test_idx = indx[:train_size], indx[train_size:]
+    return train_idx, test_idx

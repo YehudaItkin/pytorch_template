@@ -25,8 +25,7 @@ class CustomDataset(Dataset):
         return self.labels.shape[0]
 
     def _read_data_sample(self, filename):
-        return
+        pass
 
     def _get_label(self, index):
-        return
-
+        pass

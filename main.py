@@ -6,7 +6,7 @@ import torch
 from torch import optim
 from torch import nn
 import torch.utils.data as data_utils
-from dnn.network import CNNRegressor
+from dnn.network import DNN
 import logging
 from dataset.dataset_class import CustomDataset
 import numpy as np
@@ -68,7 +68,7 @@ def main():
     total_epochs = config['total_epochs']
     batch_epochs = config['batch_epochs']
 
-    model = CNNRegressor().to(device)
+    model = DNN().to(device)
     criterion = nn.MSELoss().to(device)
     optimizer = optim.Adam(model.parameters(), lr=learning_rate)
 
